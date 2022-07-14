@@ -31,32 +31,24 @@ class FormularioTransferencia extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              const TextField(
-                controller: TextEditingController(_controladorCampoNumeroConta),
-                style: TextStyle(fontSize: 24.0),
-                decoration: InputDecoration(
-                    icon: Icon(Icons.monetization_on),
-                    labelText: 'Número da conta',
-                    hintText: '0000'),
-                keyboardType: TextInputType.number,
+              Editor(
+                controlador: _controladorCampoNumeroConta,
+                rotulo: "Numero conta",
+                dica: '0000',
               ),
-              const TextField(
-                style: TextStyle(fontSize: 24.0),
-                controller: _controladorCampoValor,
-                decoration: InputDecoration(
-                    icon: Icon(Icons.monetization_on),
-                    labelText: 'Valor',
-                    hintText: '0.00'),
-                keyboardType: TextInputType.number,
+              Editor(
+                controlador: _controladorCampoValor,
+                rotulo: "Valor",
+                dica: '0.00',
               ),
               ElevatedButton(
                   onPressed: () {
-                    final int numeroConta =
-                        int.tryParse(_controladorCampoNumeroConta);
-                    final double valor =
-                        double.tryParse(_controladorCampoValor);
+                    final int? numeroConta =
+                        int.tryParse(_controladorCampoNumeroConta.text);
+                    final double? valor =
+                        double.tryParse(_controladorCampoValor.text);
                     final transferenciaCriada =
-                        Transferencia(valor, numeroConta);
+                        Transferencia(valor!, numeroConta!);
                     Scaffold.of(context).showSnackBar(
                       SnackBar(
                         content: Text('$transferenciaCriada'),
@@ -67,6 +59,33 @@ class FormularioTransferencia extends StatelessWidget {
             ],
           ),
         ));
+  }
+}
+
+class Editor extends StatelessWidget {
+  final TextEditingController _controlador;
+  final String _rotulo;
+  final String _dica;
+
+  const Editor(
+      {Key? key,
+      required TextEditingController controlador,
+      required String rotulo,
+      required String dica})
+      : _controlador = controlador,
+        _rotulo = rotulo,
+        _dica = dica,
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: _controlador,
+      style: const TextStyle(fontSize: 24.0),
+      decoration: InputDecoration(
+          icon: const Icon(null), labelText: _rotulo, hintText: _dica),
+      keyboardType: TextInputType.number,
+    );
   }
 }
 
