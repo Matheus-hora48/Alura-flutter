@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(Bytebankapp());
+void main() => runApp(const Bytebankapp());
 
 class Bytebankapp extends StatelessWidget {
   const Bytebankapp({Key? key}) : super(key: key);
@@ -16,15 +16,57 @@ class Bytebankapp extends StatelessWidget {
 }
 
 class FormularioTransferencia extends StatelessWidget {
-  const FormularioTransferencia({Key? key}) : super(key: key);
+  //const FormularioTransferencia({Key? key}) : super(key: key);
+  final TextEditingController _controladorCampoNumeroConta =
+      TextEditingController();
+  final TextEditingController _controladorCampoValor = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Realizar transferencia'),
-      ),
-    );
+        appBar: AppBar(
+          title: const Text('Realizar transferencia'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              const TextField(
+                controller: TextEditingController(_controladorCampoNumeroConta),
+                style: TextStyle(fontSize: 24.0),
+                decoration: InputDecoration(
+                    icon: Icon(Icons.monetization_on),
+                    labelText: 'Número da conta',
+                    hintText: '0000'),
+                keyboardType: TextInputType.number,
+              ),
+              const TextField(
+                style: TextStyle(fontSize: 24.0),
+                controller: _controladorCampoValor,
+                decoration: InputDecoration(
+                    icon: Icon(Icons.monetization_on),
+                    labelText: 'Valor',
+                    hintText: '0.00'),
+                keyboardType: TextInputType.number,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    final int numeroConta =
+                        int.tryParse(_controladorCampoNumeroConta);
+                    final double valor =
+                        double.tryParse(_controladorCampoValor);
+                    final transferenciaCriada =
+                        Transferencia(valor, numeroConta);
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('$transferenciaCriada'),
+                      ),
+                    );
+                  },
+                  child: const Text('Confirmar'))
+            ],
+          ),
+        ));
   }
 }
 
@@ -85,4 +127,9 @@ class Transferencia {
   final int numeroConta;
 
   Transferencia(this.valor, this.numeroConta);
+
+  @override
+  String toString() {
+    return 'Transferencia{valor: $valor, numeroConta $numeroConta}';
+  }
 }
