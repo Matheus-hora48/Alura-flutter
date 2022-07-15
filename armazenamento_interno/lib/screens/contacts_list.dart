@@ -18,12 +18,13 @@ class ContactsList extends StatelessWidget {
               ),),
               subtitle: Text('Number', style: TextStyle(
                 fontSize: 16.0),
+              ),
             ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(onPressed: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContactForm()));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContactForm()));
       }, child: const Icon(Icons.add)),
     );
   }

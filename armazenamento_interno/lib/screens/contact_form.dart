@@ -16,7 +16,7 @@ class _ContactFormState extends State<ContactForm> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          children: const [
+          children: [
             TextField(
               controller: nameController,
               decoration: InputDecoration(
@@ -27,6 +27,7 @@ class _ContactFormState extends State<ContactForm> {
             Padding(
               padding: EdgeInsets.only(top: 8.0),
               child: TextField(
+                controller: accountNumberController,
                 decoration: InputDecoration(
                   labelText: 'Account number',
                 ),
@@ -39,7 +40,11 @@ class _ContactFormState extends State<ContactForm> {
               child: SizedBox(
                 width: double.maxFinite,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    final String? name = nameController.text.toString();
+                    final int? accountNumber =
+                        int.tryParse(accountNumberController.text.toString());
+                  },
                   child: Text('Create'),
                 ),
               ),
