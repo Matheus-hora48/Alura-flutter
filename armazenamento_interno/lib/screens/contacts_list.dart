@@ -33,7 +33,7 @@ class ContactsList extends StatelessWidget {
                     builder: (context) => ContactForm(),
                   ),
                 )
-                .then((newContact) => debugPrint(newContact));
+                .then((newContact) => debugPrint(newContact.toString()));
           },
           child: const Icon(Icons.add)),
     );
