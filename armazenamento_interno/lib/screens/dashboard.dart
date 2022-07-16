@@ -17,7 +17,7 @@ class Dashboard extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Image.asset('images/logo.png'),
+            child: Image.network('https://www.willbank.com.br/img/fb.jpg'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

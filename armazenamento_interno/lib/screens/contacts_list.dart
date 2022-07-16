@@ -13,19 +13,29 @@ class ContactsList extends StatelessWidget {
         children: const [
           Card(
             child: ListTile(
-              title: Text('name', style: TextStyle(
-                fontSize: 24.0
-              ),),
-              subtitle: Text('Number', style: TextStyle(
-                fontSize: 16.0),
+              title: Text(
+                'name',
+                style: TextStyle(fontSize: 24.0),
+              ),
+              subtitle: Text(
+                'Number',
+                style: TextStyle(fontSize: 16.0),
               ),
             ),
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContactForm()));
-      }, child: const Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context)
+                .push(
+                  MaterialPageRoute(
+                    builder: (context) => ContactForm(),
+                  ),
+                )
+                .then((newContact) => debugPrint(newContact));
+          },
+          child: const Icon(Icons.add)),
     );
   }
 }
