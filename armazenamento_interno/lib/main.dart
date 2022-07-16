@@ -1,8 +1,12 @@
+import 'package:armazenamento_interno/database/app_batabase.dart';
 import 'package:armazenamento_interno/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
+import 'models/contact.dart';
+
 void main() {
-  runApp(const BytebankApp());
+  runApp(BytebankApp());
+  findAll().then((contacts) => debugPrint(contacts.toString()));
 }
 
 class BytebankApp extends StatelessWidget {
