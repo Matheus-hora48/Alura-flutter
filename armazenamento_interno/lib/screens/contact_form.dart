@@ -17,6 +17,7 @@ class _ContactFormState extends State<ContactForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text('New contact'),
+        backgroundColor: Colors.blueAccent[700],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
