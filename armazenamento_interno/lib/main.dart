@@ -23,7 +23,7 @@ class BytebankApp extends StatelessWidget {
           ),
           colorScheme: ColorScheme.fromSwatch()
               .copyWith(secondary: Colors.blueAccent[700])),
-      home: const Dashboard(),
+      home: Dashboard(),
     );
   }
 }
