@@ -4,9 +4,16 @@ import '../database/dao/contact_dao.dart';
 import '../models/contact.dart';
 import 'contact_form.dart';
 
-class ContactsList extends StatelessWidget {
+class ContactsList extends StatefulWidget {
   ContactsList({Key? key}) : super(key: key);
+
+  @override
+  State<ContactsList> createState() => _ContactsListState();
+}
+
+class _ContactsListState extends State<ContactsList> {
   final ContactDao _dao = ContactDao();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,10 +36,10 @@ class ContactsList extends StatelessWidget {
                       CircularProgressIndicator(
                         color: Colors.blueAccent[700],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16.0,
                       ),
-                      Text('Loading')
+                      const Text('Loading')
                     ],
                   ),
                 );
@@ -50,9 +57,9 @@ class ContactsList extends StatelessWidget {
                 );
                 break;
             }
-            return Text('Unknow error');
+            return const Text('Unknow error');
           }),
-      floatingActionButton: FloatingActionButton(      
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context)
               .push(
@@ -64,7 +71,7 @@ class ContactsList extends StatelessWidget {
                 (value) => setState(() {}),
               );
         },
-        child: Icon(
+        child: const Icon(
           Icons.add,
         ),
       ),
@@ -74,7 +81,7 @@ class ContactsList extends StatelessWidget {
 
 class _ContactItem extends StatelessWidget {
   final Contact contact;
-  _ContactItem(this.contact);
+  const _ContactItem(this.contact);
 
   @override
   Widget build(BuildContext context) {
@@ -82,13 +89,13 @@ class _ContactItem extends StatelessWidget {
       child: ListTile(
         title: Text(
           contact.name,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 24.0,
           ),
         ),
         subtitle: Text(
           contact.accountNumber.toString(),
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16.0,
           ),
         ),
