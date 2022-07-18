@@ -52,7 +52,7 @@ class ContactsList extends StatelessWidget {
             }
             return Text('Unknow error');
           }),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(      
         onPressed: () {
           Navigator.of(context)
               .push(
