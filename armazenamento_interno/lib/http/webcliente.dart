@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:armazenamento_interno/models/contact.dart';
+import 'package:armazenamento_interno/models/transaction.dart';
 import 'package:http/http.dart';
 import 'package:http_interceptor/http/interceptor_contract.dart';
 import 'package:http_interceptor/http_interceptor.dart';
@@ -16,8 +20,24 @@ class LoggingInterceptor implements InterceptorContract {
   }
 }
 
-void findAll() async {
+Future<List<Transaction>> findAll() async {
+  final Client client = InterceptedClient.build(
+    interceptors: [LoggingInterceptor()],
+  );
   final Response response =
-      await get(Uri.parse('http://172.23.32.1:8080/transactions'));
-  print(response.body);
+      await client.get(Uri.http('192.168.1.124:8080', 'transactions'));
+  final List<dynamic> decodedJson = jsonDecode(response.body);
+  final List<Transaction> transactions = [];
+  for (Map<String, dynamic> transactionJson in decodedJson) {
+    final Map<String, dynamic> contactJson = transactionJson['contact'];
+    final Transaction transaction = Transaction(
+        transactionJson['value'],
+        Contact(
+          0,
+          contactJson['name'],
+          contactJson['accountNumber'],
+        ));
+    transactions.add(transaction);
+  }
+  return transactions;
 }
