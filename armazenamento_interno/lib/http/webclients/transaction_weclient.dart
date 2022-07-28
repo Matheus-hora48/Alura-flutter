@@ -31,15 +31,4 @@ class TransactionWebClient {
     Map<String, dynamic> json = jsonDecode(response.body);
     return Transaction.fromJson(json);
   }
-
-  Map<String, dynamic> _toMap(Transaction transaction) {
-    final Map<String, dynamic> transactionMap = {
-      'value': transaction.value,
-      'contact': {
-        'name': transaction.contact.name,
-        'accountNumber': transaction.contact.accountNumber,
-      }
-    };
-    return transactionMap;
-  }
 }
