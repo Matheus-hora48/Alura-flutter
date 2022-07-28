@@ -1,11 +1,13 @@
 import 'package:armazenamento_interno/components/centered_message.dart';
+import 'package:armazenamento_interno/http/webclients/transaction_weclient.dart';
 import 'package:flutter/material.dart';
 import '../components/progress.dart';
-import '../http/webcliente.dart';
 import '../models/transaction.dart';
 
 class TransactionsList extends StatelessWidget {
-  const TransactionsList({Key? key}) : super(key: key);
+  TransactionsList({Key? key}) : super(key: key);
+
+  final TransactionWebClient _webClient = TransactionWebClient();
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class TransactionsList extends StatelessWidget {
         backgroundColor: Colors.blueAccent[700],
       ),
       body: FutureBuilder<List<Transaction>>(
-        future: findAll(),
+        future: _webClient.findAll(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
@@ -33,7 +35,7 @@ class TransactionsList extends StatelessWidget {
                       final Transaction transaction = transactions[index];
                       return Card(
                         child: ListTile(
-                          leading: Icon(Icons.monetization_on),
+                          leading: const Icon(Icons.monetization_on),
                           title: Text(
                             transaction.value.toString(),
                             style: const TextStyle(

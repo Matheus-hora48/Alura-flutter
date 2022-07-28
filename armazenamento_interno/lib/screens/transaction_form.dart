@@ -1,4 +1,5 @@
 import 'package:armazenamento_interno/http/webcliente.dart';
+import 'package:armazenamento_interno/http/webclients/transaction_weclient.dart';
 import 'package:armazenamento_interno/models/contact.dart';
 import 'package:armazenamento_interno/models/transaction.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class TransactionForm extends StatefulWidget {
 
 class _TransactionFormState extends State<TransactionForm> {
   final TextEditingController _valueController = TextEditingController();
+  final TransactionWebClient _webClient = TransactionWebClient();
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +66,7 @@ class _TransactionFormState extends State<TransactionForm> {
                           double.tryParse(_valueController.text);
                       final transactionCreated =
                           Transaction(value!, widget.contact);
-                      save(transactionCreated).then((transaction) {
+                      _webClient.save(transactionCreated).then((transaction) {
                         if (transaction != null) {
                           Navigator.pop(context);
                         }
