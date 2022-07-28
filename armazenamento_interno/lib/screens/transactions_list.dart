@@ -1,15 +1,17 @@
+import 'package:armazenamento_interno/components/centered_message.dart';
 import 'package:flutter/material.dart';
-
 import '../components/progress.dart';
 import '../http/webcliente.dart';
 import '../models/transaction.dart';
 
 class TransactionsList extends StatelessWidget {
+  const TransactionsList({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Transactions'),
+        title: const Text('Transactions'),
         backgroundColor: Colors.blueAccent[700],
       ),
       body: FutureBuilder<List<Transaction>>(
@@ -20,7 +22,6 @@ class TransactionsList extends StatelessWidget {
               break;
             case ConnectionState.waiting:
               return Progress();
-              break;
             case ConnectionState.active:
               break;
             case ConnectionState.done:
@@ -35,14 +36,14 @@ class TransactionsList extends StatelessWidget {
                           leading: Icon(Icons.monetization_on),
                           title: Text(
                             transaction.value.toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 24.0,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           subtitle: Text(
                             transaction.contact.accountNumber.toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16.0,
                             ),
                           ),
@@ -52,11 +53,15 @@ class TransactionsList extends StatelessWidget {
                     itemCount: transactions.length,
                   );
                 }
+                return CenteredMessage('No transactions found',
+                    icon: Icons.warning);
               }
-              break;
           }
 
-          return Text('Error');
+          return CenteredMessage(
+            'Error',
+            icon: Icons.dangerous,
+          );
         },
       ),
     );
