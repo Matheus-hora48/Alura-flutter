@@ -15,10 +15,8 @@ class TransactionWebClient {
 
   List<Transaction> _toTransaction(Response response) {
     final List<dynamic> decodedJson = jsonDecode(response.body);
-    final List<Transaction> transactions = [];
-    for (Map<String, dynamic> transactionJson in decodedJson) {
-      transactions.add(Transaction.fromJson(transactionJson));
-    }
+    final List<Transaction> transactions =
+        decodedJson.map((dynamic json) => Transaction.fromJson(json)).toList();
     return transactions;
   }
 
@@ -28,7 +26,6 @@ class TransactionWebClient {
     final Response response = await client.post(Uri.http(baseUrl, local),
         headers: {'Content-type': 'application/json', 'password': '1000'},
         body: transactionJson);
-    Map<String, dynamic> json = jsonDecode(response.body);
-    return Transaction.fromJson(json);
+    return Transaction.fromJson(jsonDecode(response.body));
   }
 }
